@@ -1,0 +1,159 @@
+------- ELASTODYN for OpenFAST INPUT FILE -------------------------------------------
+WOW ElastoDyn
+---------------------- SIMULATION CONTROL --------------------------------------
+False         Echo        - （调试信息）Echo input data to "<RootName>.ech" (flag)
+          3   Method      - （积分方法）Integration method: {1: RK4, 2: AB4, or 3: ABM4} (-)
+"DEFAULT"     DT          - （时间步长）Integration time step (s)
+---------------------- DEGREES OF FREEDOM --------------------------------------
+True          FlapDOF1    - （一阶挥舞模态自由度）First flapwise blade mode DOF (flag)
+True          FlapDOF2    - （二阶挥舞模态自由度）Second flapwise blade mode DOF (flag)
+True          EdgeDOF     - （一阶摆振模态自由度）First edgewise blade mode DOF (flag)
+False         TeetDOF     - （Rotor-teeter自由度-三叶风车不使用）Rotor-teeter DOF (flag) [unused for 3 blades]
+True          DrTrDOF     - （传动链旋转-柔性自由度）Drivetrain rotational-flexibility DOF (flag)
+True          GenDOF      - （发电机自由度）Generator DOF (flag)
+True          YawDOF      - （偏航自由度）Yaw DOF (flag)
+True          TwFADOF1    - （一阶前后弯曲模态自由度）First fore-aft tower bending-mode DOF (flag)
+True          TwFADOF2    - （二阶前后弯曲模态自由度）Second fore-aft tower bending-mode DOF (flag)
+True          TwSSDOF1    - （一阶侧向弯曲模态自由度）First side-to-side tower bending-mode DOF (flag)
+True          TwSSDOF2    - （二阶侧向弯曲模态自由度）Second side-to-side tower bending-mode DOF (flag)
+True          PtfmSgDOF   - （纵荡自由度surge）Platform horizontal surge translation DOF (flag)
+True          PtfmSwDOF   - （横荡自由度sway）Platform horizontal sway translation DOF (flag)
+True          PtfmHvDOF   - （垂荡自由度heave）Platform vertical heave translation DOF (flag)
+True          PtfmRDOF    - （横摇自由度roll）Platform roll tilt rotation DOF (flag)
+True          PtfmPDOF    - （纵摇自由度pitch）Platform pitch tilt rotation DOF (flag)
+True          PtfmYDOF    - （艏摇自由度yaw）Platform yaw rotation DOF (flag)
+---------------------- INITIAL CONDITIONS --------------------------------------
+          0   OoPDefl     - （初始面外叶尖位移）Initial out-of-plane blade-tip displacement (meters)
+          0   IPDefl      - （初始面内叶尖挠度）Initial in-plane blade-tip deflection (meters)
+          0   BlPitch(1)  - （叶片1初始桨距角）Blade 1 initial pitch (degrees)
+          0   BlPitch(2)  - （叶片2初始桨距角）Blade 2 initial pitch (degrees)
+          0   BlPitch(3)  - （叶片3初始桨距角；2叶片时不使用该参数）Blade 3 initial pitch (degrees) [unused for 2 blades]
+          0   TeetDefl    - （初始或固定的风轮跷跷板角度；3叶片时不使用该参数）Initial or fixed teeter angle (degrees) [unused for 3 blades]
+          0   Azimuth     - （初始相位角）Initial azimuth angle for blade 1 (degrees)
+          800   RotSpeed    - （初始或固定的风轮转速）Initial or fixed rotor speed (rpm)
+          0   NacYaw      - （初始或固定的机舱偏航角）Initial or fixed nacelle-yaw angle (degrees)
+          0   TTDspFA     - （初始塔顶前后位移）Initial fore-aft tower-top displacement (meters)
+          0   TTDspSS     - （初始塔顶侧向位移）Initial side-to-side tower-top displacement (meters)
+          0   PtfmSurge   - （初始或固定平台纵荡位移）Initial or fixed horizontal surge translational displacement of platform (meters)
+          0   PtfmSway    - （初始或固定平台横荡位移）Initial or fixed horizontal sway translational displacement of platform (meters)
+          0   PtfmHeave   - （初始或固定平台垂荡位移）Initial or fixed vertical heave translational displacement of platform (meters)
+          0   PtfmRoll    - （初始或固定平台横摇角度）Initial or fixed roll tilt rotational displacement of platform (degrees)
+          0   PtfmPitch   - （初始或固定平台纵摇角度）Initial or fixed pitch tilt rotational displacement of platform (degrees)
+          0   PtfmYaw     - （初始或固定平台艏摇角度）Initial or fixed yaw rotational displacement of platform (degrees)
+---------------------- TURBINE CONFIGURATION （风车参数）-----------------------------------
+          3   NumBl       - （叶片数量）Number of blades (-)
+       0.61   TipRad      - （风轮尖端到叶尖距离）The distance from the rotor apex to the blade tip (meters)
+       0.03   HubRad      - （风轮尖端到叶根距离）The distance from the rotor apex to the blade root (meters)
+       0   PreCone(1)  - （叶片1锥角）Blade 1 cone angle (degrees)
+       0   PreCone(2)  - （叶片2锥角）Blade 2 cone angle (degrees)
+       0   PreCone(3)  - （叶片3锥角，二叶风车不用）Blade 3 cone angle (degrees) [unused for 2 blades]
+          0   HubCM       - （风轮尖端到轮毂质心距离[下风向为正]）Distance from rotor apex to hub mass [positive downwind] (meters)
+          0   UndSling    - （底座长度[从跷跷板到风轮尖端的距离]；3叶片时不使用该参数）Undersling length [distance from teeter pin to the rotor apex] (meters) [unused for 3 blades]
+          0   Delta3      - （跷跷板转子的Delta-3角（不清楚具体用途，欢迎知道的大佬补充）；3叶片时不使用该参数）Delta-3 angle for teetering rotors (degrees) [unused for 3 blades]
+          0   AzimB1Up    - （当叶片1朝上时用于I/O的方位角）Azimuth value to use for I/O when blade 1 points up (degrees)
+          0   OverHang    - （偏航轴到风轮尖端的距离）Distance from yaw axis to rotor apex [3 blades] or teeter pin [2 blades] (meters)
+      1.912   ShftGagL    - （!风轮尖端到轴应变计的距离）Distance from rotor apex [3 blades] or teeter pin [2 blades] to shaft strain gages [positive for upwind rotors] (meters)
+         -5   ShftTilt    - （!风轮轴倾斜角度）Rotor shaft tilt angle (degrees)
+          0   NacCMxn     - （从塔顶到机舱质心的轴向距离）Downwind distance from the tower-top to the nacelle CM (meters)
+          0   NacCMyn     - （从塔顶到机舱质心的横向距离）Lateral  distance from the tower-top to the nacelle CM (meters)
+      0.197   NacCMzn     - （从塔顶到机舱质心的垂向距离）Vertical distance from the tower-top to the nacelle CM (meters)
+          0   NcIMUxn     - （!从塔顶到惯性测量单元的轴向距离）Downwind distance from the tower-top to the nacelle IMU (meters)
+          0   NcIMUyn     - （!从塔顶到惯性测量单元的横向距离）Lateral  distance from the tower-top to the nacelle IMU (meters)
+          0   NcIMUzn     - （!从塔顶到惯性测量单元的垂直距离）Vertical distance from the tower-top to the nacelle IMU (meters)
+      0.197   Twr2Shft    - （从塔顶到风轮主轴的距离）Vertical distance from the tower-top to the rotor shaft (meters)
+     1.0698   TowerHt     - （塔顶对地/海平面高度）Height of tower above ground level [onshore], MSL [offshore], or seabed [MHK] (meters)
+     0.0698   TowerBsHt   - （塔基对地/海平面高度）Height of tower base above ground level [onshore], MSL [offshore], or seabed [MHK] (meters)
+          0   PtfmCMxt    - （从地面/海平面到平台质心的轴向距离）Downwind distance from the ground level [onshore], MSL [offshore], or seabed [MHK] to the platform CM (meters)
+          0   PtfmCMyt    - （从地面/海平面到平台质心的横向距离）Lateral distance from the ground level [onshore], MSL [offshore], or seabed [MHK] to the platform CM (meters)
+    -0.15985   PtfmCMzt    - （从地面/海平面到平台质心的垂向距离）Vertical distance from the ground level [onshore], MSL [offshore], or seabed [MHK] to the platform CM (meters)
+          0   PtfmRefzt   - （从地面/海平面到平台参考点的垂向距离）Vertical distance from the ground level [onshore], MSL [offshore], or seabed [MHK] to the platform reference point (meters)
+---------------------- MASS AND INERTIA （质量） ----------------------------------------
+          0   TipMass(1)  - （叶片1叶尖刹车质量）Tip-brake mass, blade 1 (kg)
+          0   TipMass(2)  - （叶片2叶尖刹车质量）Tip-brake mass, blade 2 (kg)
+          0   TipMass(3)  - （叶片3叶尖刹车质量）Tip-brake mass, blade 3 (kg) [unused for 2 blades]
+      56780   HubMass     - （!轮毂质量）Hub mass (kg)
+     115926   HubIner     - （!毂绕风轮轴的转动惯量）Hub inertia about rotor axis [3 blades] or teeter axis [2 blades] (kg m^2)
+    534.116   GenIner     - （!发电机绕高速轴的转动惯量）Generator inertia about HSS (kg m^2)
+     240000   NacMass     - （!机舱质量）Nacelle mass (kg)
+2.60789E+06   NacYIner    - （!机舱绕偏航轴的转动惯量）Nacelle inertia about yaw axis (kg m^2)
+          0   YawBrMass   - （!偏航轴承质量）Yaw bearing mass (kg)
+3.85218E+06   PtfmMass    - （!平台质量）Platform mass (kg)
+2.56193E+09   PtfmRIner   - （!平台绕质心的横摇转动惯量）Platform inertia for roll tilt rotation about the platform CM (kg m^2)
+2.56193E+09   PtfmPIner   - （!平台绕质心的纵摇转动惯量）Platform inertia for pitch tilt rotation about the platform CM (kg m^2)
+4.24265E+09   PtfmYIner   - （!平台绕质心的艏摇转动惯量）Platform inertia for yaw rotation about the platform CM (kg m^2)
+---------------------- BLADE ---------------------------------------------------
+         17   BldNodes    - Number of blade nodes (per blade) used for analysis (-)
+"Blade.dat"    BldFile(1)  - （!包含叶片1属性的文件名）Name of file containing properties for blade 1 (quoted string)
+"Blade.dat"    BldFile(2)  - （!包含叶片2属性的文件名）Name of file containing properties for blade 2 (quoted string)
+"Blade.dat"    BldFile(3)  - （!包含叶片3属性的文件名）Name of file containing properties for blade 3 (quoted string) [unused for 2 blades]
+---------------------- ROTOR-TEETER （对于三叶风车不考虑）--------------------------------------------
+          0   TeetMod     - Rotor-teeter spring/damper model {0: none, 1: standard, 2: user-defined from routine UserTeet} (switch) [unused for 3 blades]
+          0   TeetDmpP    - Rotor-teeter damper position (degrees) [used only for 2 blades and when TeetMod=1]
+          0   TeetDmp     - Rotor-teeter damping constant (N-m/(rad/s)) [used only for 2 blades and when TeetMod=1]
+          0   TeetCDmp    - Rotor-teeter rate-independent Coulomb-damping moment (N-m) [used only for 2 blades and when TeetMod=1]
+          0   TeetSStP    - Rotor-teeter soft-stop position (degrees) [used only for 2 blades and when TeetMod=1]
+          0   TeetHStP    - Rotor-teeter hard-stop position (degrees) [used only for 2 blades and when TeetMod=1]
+          0   TeetSSSp    - Rotor-teeter soft-stop linear-spring constant (N-m/rad) [used only for 2 blades and when TeetMod=1]
+          0   TeetHSSp    - Rotor-teeter hard-stop linear-spring constant (N-m/rad) [used only for 2 blades and when TeetMod=1]
+---------------------- DRIVETRAIN ----------------------------------------------
+        100   GBoxEff     - （齿轮箱效率）Gearbox efficiency (%)
+         97   GBRatio     - （齿轮箱增速比）Gearbox ratio (-)
+8.67637E+08   DTTorSpr    - （!传动链扭转弹簧）Drivetrain torsional spring (N-m/rad)
+  6.215E+06   DTTorDmp    - （!传动链扭转阻尼）Drivetrain torsional damper (N-m/(rad/s))
+---------------------- FURLING （一种风电机组类型）-------------------------------------------------
+False         Furling     - Read in additional model properties for furling turbine (flag) [must currently be FALSE)
+"unused"      FurlFile    - Name of file containing furling properties (quoted string) [unused when Furling=False]
+---------------------- TOWER ---------------------------------------------------
+         20   TwrNodes    - （塔筒节点数量）Number of tower nodes used for analysis (-)
+"ElastoDyn_Tower.dat"    TwrFile     - （包含塔筒属性的文件名）Name of file containing tower properties (quoted string)
+---------------------- OUTPUT --------------------------------------------------
+True          SumPrint    - Print summary data to "<RootName>.sum" (flag)
+          2   OutFile     - Switch to determine where output will be placed: {1: in module output file only; 2: in glue code output file only; 3: both} (currently unused)
+True          TabDelim    - Use tab delimiters in text tabular output file? (flag) (currently unused)
+"ES10.3E2"    OutFmt      - Format used for text tabular output (except time).  Resulting field should be 10 characters. (quoted string) (currently unused)
+          0   TStart      - Time to begin tabular output (s) (currently unused)
+          1   DecFact     - Decimation factor for tabular output {1: output every time step} (-) (currently unused)
+          1   NTwGages    - Number of tower nodes that have strain gages for output [0 to 9] (-)
+         10   TwrGagNd    - List of tower nodes that have strain gages [1 to TwrNodes] (-) [unused if NTwGages=0]
+          1   NBlGages    - Number of blade nodes that have strain gages for output [0 to 9] (-)
+          9   BldGagNd    - List of blade nodes that have strain gages [1 to BldNodes] (-) [unused if NBlGages=0]
+              OutList     - The next line(s) contains a list of output parameters.  See OutListParameters.xlsx for a listing of available output channels, (-)
+"Azimuth"                 - Blade 1 azimuth angle
+"RotSpeed"                - Low-speed shaft speed （转速）
+"GenSpeed"                - High-speed shaft speed （转速）
+"OoPDefl1"                - Blade 1 out-of-plane deflection
+"IPDefl1"                 - Blade 1 in-plane     deflection
+"TwstDefl1"               - Blade 1 tip twist
+"BldPitch1"               - Blade 1 pitch angle
+"TTDspFA"                 - Tower fore-aft     deflection
+"TTDspSS"                 - Tower side-to-side deflection
+"TTDspTwst"               - Tower top twist
+"PtfmSurge"               - Platform translational surge displacement （6自由度）
+"PtfmSway"                - Platform translational sway  displacement
+"PtfmHeave"               - Platform translational heave displacement
+"PtfmRoll"                - Platform rotational roll  displacement
+"PtfmPitch"               - Platform rotational pitch displacement
+"PtfmYaw"                 - Platform rotational yaw   displacement
+"RootFxc1"                - Out-of-plane shear force at the root of blade 1
+"RootFyc1"                - In-plane     shear force at the root of blade 1
+"RootFzc1"                - Axial              force at the root of blade 1
+"RootMxc1"                - In-plane     bending moment at the root of blade 1
+"RootMyc1"                - Out-of-plane bending moment at the root of blade 1
+"RootMzc1"                - Pitching             moment at the root of blade 1
+"RotTorq"                 - Rotor torque
+"LSSGagMya"               - Low-speed shaft 0- rotating bending moments at the main bearing
+"LSSGagMza"               - Low-speed shaft 90-rotating bending moments at the main bearing
+"YawBrFxp"                - Fore-aft     shear force at the top of the tower (not rotating with nacelle yaw)
+"YawBrFyp"                - Side-to-side shear force at the top of the tower (not rotating with nacelle yaw)
+"YawBrFzp"                - Vertical           force at the top of the tower (not rotating with nacelle yaw)
+"YawBrMxp"                - Side-to-side bending moment at the top of the tower (not rotating with nacelle yaw)
+"YawBrMyp"                - Fore-aft     bending moment at the top of the tower (not rotating with nacelle yaw)
+"YawBrMzp"                - Yaw                  moment at the top of the tower (not rotating with nacelle yaw)
+"TwrBsFxt"                - Fore-aft     shear force at the base of the tower (platform)
+"TwrBsFyt"                - Side-to-side shear force at the base of the tower (platform)
+"TwrBsFzt"                - Vertical           force at the base of the tower (platform)
+"TwrBsMxt"                - Side-to-side bending moment at the base of the tower (platform)
+"TwrBsMyt"                - Fore-aft     bending moment at the base of the tower (platform)
+"TwrBsMzt"                - Yaw                  moment at the base of the tower (platform)
+END of input file (the word "END" must appear in the first 3 columns of this last OutList line)
+---------------------------------------------------------------------------------------
