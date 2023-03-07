@@ -1,18 +1,20 @@
 import config
 import subprocess
+from module import logger
 
 
 # class for running openFAST
 class FAST:
-    def __init__(self, logger):
-        self.logger = logger
+    def __init__(self):
+        self.logger = logger.logger
         self.path = config.openFAST_path
 
     # run openFAST simulation
     def run(self):
         self.logger.info("Running openFAST simulation.")
         try:
-            subprocess.run("openfast " + self.path + "/main.fst")
+            subprocess.check_call([config.openFAST_command, self.path + "/main.fst"])
         except Exception as err:
-            self.logger.warn("Run openFAST failed.")
+            self.logger.error("Run openFAST failed.")
             self.logger.error(err)
+            exit()

@@ -1,20 +1,27 @@
-# class for running openFAST
+from module import logger
+from module.fileAPI import FileAPI
+import config
+
+
+# class for running openMDAO
 class MDAO:
-    def __init__(self, logger):
-        self.logger = logger
+    def __init__(self):
+        self.logger = logger.logger
+        # self.openMDAO = OpenMDAO()  # a instance of openMDAO
+        # self.simulation_data = self.read_fast()  # simulation output data
 
-    # read one simulation output data
-    def read(self, key):
+    # function to read FAST output files
+    def read_fast(self):
         pass
 
-    # sent simulation output
-    def sent(self):
-        pass
-
-    # receive optimization data
-    def receive(self):
+    # update new parameters to the main loop
+    def update(self, main):
+        # main.variable = openMDAO.variable
+        # ...
         pass
 
     # run openMDAO
     def run(self):
         self.logger.info("Running openMDAO optimisation.")
+        # self.openMDAO.someFunctions(self.simulation_data)
+        return self

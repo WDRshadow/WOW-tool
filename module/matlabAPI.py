@@ -1,11 +1,12 @@
 import config
+from module import logger
 import matlab.engine
 
 
 # class for running MATLAB
 class MATLAB:
-    def __init__(self, logger):
-        self.logger = logger
+    def __init__(self):
+        self.logger = logger.logger
         self.path = config.matlab_path
 
     # generate the .gdf file
@@ -16,5 +17,6 @@ class MATLAB:
             eng.cd(self.path)
             eng.gdf_script(nargout=0)
         except Exception as err:
-            self.logger.warn("Run MATLAB failed.")
+            self.logger.error("Run MATLAB failed.")
             self.logger.error(err)
+            exit()
