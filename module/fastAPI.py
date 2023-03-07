@@ -1,4 +1,5 @@
 import config
+import subprocess
 
 
 # class for running openFAST
@@ -7,6 +8,11 @@ class FAST:
         self.logger = logger
         self.path = config.openFAST_path
 
-    # generate the .gdf file
+    # run openFAST simulation
     def run(self):
         self.logger.info("Running openFAST simulation.")
+        try:
+            subprocess.run("openfast " + self.path + "/main.fst")
+        except Exception as err:
+            self.logger.warn("Run openFAST failed.")
+            self.logger.error(err)

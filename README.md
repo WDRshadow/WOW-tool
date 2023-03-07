@@ -1,9 +1,8 @@
 # WOW-tool
-This is an interface for connecting the OpenFAST, OpenMDAO, WAMIT, and Matlab. This tool allows an automatic loop between simulation and optimisation. The tool is contributed by Wind Over Wave society in the University of Edinburgh.
 
 ## Introduction
 
-    None...
+This is an interface for connecting the OpenFAST, OpenMDAO, WAMIT, and Matlab. This tool allows an automatic loop between simulation and optimisation. The tool is contributed by Wind Over Wave society in the University of Edinburgh.
 
 ## Structure
 
@@ -11,11 +10,27 @@ This is an interface for connecting the OpenFAST, OpenMDAO, WAMIT, and Matlab. T
 
 ## Environment
 
-    None...
+1. MATLAB Engine API for Python [(Install)](https://uk.mathworks.com/help/matlab/matlab_external/install-the-matlab-engine-for-python.html)
+2. MATLAB R2022b
+3. WAMIT
+4. OpenFAST
+5. OpenMDAO
+6. Python 3.9
 
 ## Commands
 
-    Developing...
+To run this tool, you need to run the below command in terminal:
+
+    # python run.py [command]
+
+Command list:
+
+1. run - run the simulation-optimization loop
+2. openfast - run the openFAST simulation
+3. matlab - run the matlab for generate the .gdf file
+4. wamit - run WAMIT for calculating the hydrostatic data
+5. openmdao - run openMDAO for optimization
+6. help - for help
 
 ## Acknowledgement
 

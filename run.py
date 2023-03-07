@@ -7,7 +7,7 @@ logger = logging.getLogger('WOW-tool')
 logger.setLevel(logging.INFO)
 consoleHandler = logging.StreamHandler()
 consoleHandler.setLevel(logging.INFO)
-fileHandler = logging.FileHandler('logs/wow.log', mode='a', encoding='UTF-8')
+fileHandler = logging.FileHandler('wow.log', mode='a', encoding='UTF-8')
 fileHandler.setLevel(logging.NOTSET)
 formatter = logging.Formatter('[%(name)s] [%(asctime)s] [%(levelname)s]: %(message)s')
 consoleHandler.setFormatter(formatter)
@@ -38,4 +38,8 @@ elif command == "wamit":
 elif command == "openmdao":
     mdaoInterface.MDAO(logger).run()
 else:
-    logger.error("No command name " + command)
+    if command != "help":
+        logger.error("No command name " + command)
+    logger.info("\nCommand list:\n1. run - run the simulation-optimization loop\n2. openfast - run the openFAST "
+                "simulation\n3. matlab - run the matlab for generate the .gdf file\n4. wamit - run WAMIT for "
+                "calculating the hydrostatic data\n5. openmdao - run openMDAO for optimization\n6. help - for help")
