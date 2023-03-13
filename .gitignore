@@ -139,3 +139,10 @@ test.*
 *.ech
 *.outb
 vtk/
+*.1
+*.3
+*.12d
+*.12s
+*.hst
+*.ss
+*.ssexctn

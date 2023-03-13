@@ -1,4 +1,5 @@
 from interface.interface import OpenMDAO
+from interface.optimization import FWOptimise
 from module import logger
 
 
@@ -6,7 +7,7 @@ from module import logger
 class MDAO:
     def __init__(self):
         self.logger = logger.logger
-        self.openMDAO = OpenMDAO()  # a instance of openMDAO
+        self.openMDAO = FWOptimise()  # a instance of openMDAO
         self.simulation_data = self.read_fast()  # simulation output data
 
     # function to read FAST output files
@@ -15,7 +16,7 @@ class MDAO:
 
     # update new parameters to the main loop
     def result(self):
-        return self.openMDAO.sent_result()
+        pass
 
     # run openMDAO
     def run(self):

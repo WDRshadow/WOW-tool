@@ -2,7 +2,7 @@ import os
 import sys
 
 # Check if all the folders exist.
-folder_list = ["MATLAB", "WAMIT", "openFAST", "temp", "logs"]
+folder_list = ["temp", "logs"]
 for i in folder_list:
     folder = os.path.exists(i)
     if not folder:

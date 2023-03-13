@@ -89,6 +89,13 @@ class FileAPI:
             self.logger.error(err)
             exit()
 
+    def isExist(self):
+        """
+        A function to check if the file exist.
+        :return: True if it is exist or, False if it is not.
+        """
+        return os.path.exists(os.path.join(self.path, self.name))
+
 
 class Changer:
     def __init__(self, file: FileAPI):

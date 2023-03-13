@@ -1,12 +1,11 @@
 import config
+import os
 from module import logger
 from module.fileAPI import FileAPI
-
-
-# main loop for simulation-optimization
 from module import matlabAPI, wamitAPI, fastAPI, mdaoInterface
 
 
+# main loop for simulation-optimization
 class Main:
     def __init__(self):
         self.logger = logger.logger
@@ -27,23 +26,28 @@ class Main:
     def run(self):
         for i in range(self.times):
             self.logger.info("Running simulation and optimization in " + str(i + 1) + " times.")
-            # MATLAB progress ------------------------------------------------
+            # MATLAB progress ------------------------------------------------------------------------------------------
             matlab = matlabAPI.MATLAB()
-            FileAPI(matlab.path, "gdf_script.m").changer()\
-                .change(6, str(self.column_radius), 3)\
-                .change(7, str(self.hp_radius), 3)\
-                .change(8, str(self.draft), 3)\
-                .change(9, str(self.column_distance), 3)\
+            FileAPI(matlab.path, "gdf_script.m").changer() \
+                .change(6, str(self.column_radius), 3) \
+                .change(7, str(self.hp_radius), 3) \
+                .change(10, str(self.draft), 3) \
+                .change(8, str(self.column_distance), 3) \
                 .do()
             matlab.run()
-            FileAPI(matlab.path, "wow.gdf").copy(config.temp_path).copy(config.wamit_path)
-            # WAMIT progress -------------------------------------------------
+            # WAMIT progress -------------------------------------------------------------------------------------------
+            FileAPI(matlab.path, "wow.gdf").move(config.temp_path).copy(config.wamit_path)
             wamit = wamitAPI.WAMIT()
-            # file update ...
-            wamit.run()
-            # openFAST progress ----------------------------------------------
+            '''input file update ...'''
+            wamit.check().run()
+            # openFAST progress ----------------------------------------------------------------------------------------
+            if not os.path.exists(os.path.join(config.openFAST_path, "HydroData")):
+                os.makedirs(os.path.join(config.openFAST_path, "HydroData"))
+            FileAPI(wamit.path, "wow.1").move(config.temp_path).copy(os.path.join(config.openFAST_path, "HydroData"))
+            FileAPI(wamit.path, "wow.3").move(config.temp_path).copy(os.path.join(config.openFAST_path, "HydroData"))
+            FileAPI(wamit.path, "wow.hst").move(config.temp_path).copy(os.path.join(config.openFAST_path, "HydroData"))
             openfast = fastAPI.FAST()
-            # file update ...
+            '''input file update ...'''
             openfast.run()
-            # openMDAO progress ----------------------------------------------
+            # openMDAO progress ----------------------------------------------------------------------------------------
             self.update(mdaoInterface.MDAO().run().result())
