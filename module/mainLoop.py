@@ -29,12 +29,14 @@ class Main:
             self.logger.info("Running simulation and optimization in " + str(i + 1) + " times.")
             # MATLAB progress ------------------------------------------------
             matlab = matlabAPI.MATLAB()
-            file = FileAPI(matlab.path + "/gdf_script.m")
-            file.change(6, "r", str(self.column_radius))
-            file.change(7, "rH", str(self.hp_radius))
-            file.change(8, "d", str(self.draft))
-            file.change(9, "distance_column", str(self.column_distance))
+            FileAPI(matlab.path, "gdf_script.m").changer()\
+                .change(6, str(self.column_radius), 3)\
+                .change(7, str(self.hp_radius), 3)\
+                .change(8, str(self.draft), 3)\
+                .change(9, str(self.column_distance), 3)\
+                .do()
             matlab.run()
+            FileAPI(matlab.path, "wow.gdf").copy(config.temp_path).copy(config.wamit_path)
             # WAMIT progress -------------------------------------------------
             wamit = wamitAPI.WAMIT()
             # file update ...

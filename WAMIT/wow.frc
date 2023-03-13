@@ -1,0 +1,15 @@
+ WOW01.frc  modified WindFloat, multi column TLP -- ILOWHI=0, fine discretization -- IALTFRC=2
+ 1  1  1  1  0  0  0  1  0  IOPTN (IOPTN(4)<0 signifies fixed modes)
+ 1.                         RHO
+ 0. 0. 0.                  XCG
+  1                          IMASS
+        23.1      0.        0.        0.          3.35       4.4874
+        0.        23.1      0.        -3.35       0.         0.
+        0.        0.        23.1      -4.4874     0.         0.
+        0.        -3.35     4.4874    10.0235     0.         0.
+        3.35      0.        0.        0.          7.7375     -3.9334
+        4.4874    0.        0.        0.          -3.9334    2.486  
+ 0                          IDAMP
+ 0                          ISTIFF
+ 0                          NBETAH
+ 0                          NFIELD

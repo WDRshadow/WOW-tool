@@ -1,7 +1,5 @@
 from interface.interface import OpenMDAO
 from module import logger
-from module.fileAPI import FileAPI
-import config
 
 
 # class for running openMDAO

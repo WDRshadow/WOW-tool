@@ -1,72 +1,164 @@
-import re
+import os
+import shutil
+
 from module import logger
 
 
-# API for changing the input files
 class FileAPI:
-    def __init__(self, path):
+    def __init__(self, path: str, name: str):
+        """
+        A class of file modified API. This class is used to change, read, move, rename a file in the project.
+        :param path: The relative path of the modified file.
+        :param name: The file name.
+        """
         self.logger = logger.logger
         self.path = path
-        self.end = re.search("\.\w+$", path).group()
-        self.key_l = int
-        self.val_l = int
-        if self.end == ".m":
-            self.key_l = 1
-            self.val_l = 3
-        elif self.end == ".dat" or ".fst":
-            self.key_l = 2
-            self.val_l = 1
-        # for WAMIT and else
+        self.name = name
 
-    # get location
-    def loc(self, key_l, val_l):
-        if key_l is None:
-            if self.key_l is None:
-                self.logger.error("Miss key location.")
-                exit()
-            key_l = self.key_l
-        if val_l is None and self.val_l is not None:
-            if self.val_l is None:
-                self.logger.error("Miss value location.")
-                exit()
-            val_l = self.val_l
-        return key_l, val_l
+    def __del__(self):
+        pass
 
-    # change a specific value with key and line information
-    def change(self, line, key, value, key_l=None, val_l=None):
-        key_l, val_l = self.loc(key_l, val_l)
+    def changer(self):
+        """
+        Get a Changer object for modifying several values of the same file in succession.
+        :return: a Changer object.
+        """
+        return Changer(self)
+
+    def reader(self):
+        """
+        Get a Reader object for reading several values of the same file in succession.
+        :return: a Reader object.
+        """
+        return Reader(self)
+
+    def rename(self, name: str):
+        """
+        A function to rename this data storage file.
+        :param name: New name.
+        :return: The object.
+        """
         try:
-            file = open(self.path)
-            lines = file.readlines()
-            file.close()
-            val = lines[line - 1].split()
-            if val[key_l - 1] == key:
-                lines[line - 1] = lines[line - 1].replace(val[val_l - 1], value)
-            else:
-                self.logger.error("Cannot find key " + key)
-                exit()
-            file = open(self.path, "w")
-            file.writelines(lines)
-            file.close()
+            os.rename(os.path.join(self.path, self.name), os.path.join(self.path, name))
+            self.name = name
+            return self
         except Exception as err:
-            self.logger.error("Cannot open file " + self.path)
+            self.logger.error("Cannot rename file " + self.name)
             self.logger.error(err)
             exit()
 
-    # get a specific value with key and line information
-    def read(self, line, key, key_l=None, val_l=None):
-        key_l, val_l = self.loc(key_l, val_l)
+    def move(self, newPath: str):
+        """
+        A function to move this data storage file to a new path.
+        :param newPath: The new location for the file.
+        :return: The object.
+        """
         try:
-            file = open(self.path)
-            lines = file.readlines()
-            file.close()
-            val = lines[line - 1].split()
-            if val[key_l - 1] == key:
-                return val[val_l - 1]
-            else:
-                self.logger.error("Cannot find key " + key)
-                exit()
+            shutil.move(os.path.join(self.path, self.name), newPath)
+            self.path = newPath
+            return self
         except Exception as err:
-            self.logger.error("Cannot open file " + self.path)
+            self.logger.error("Cannot move file " + self.name + " to " + newPath)
             self.logger.error(err)
             exit()
+
+    def copy(self, newPath: str):
+        """
+        A function to copy this data storage file to a new path.
+        :param newPath: The new path for the file.
+        :return: A new object for the new file.
+        """
+        try:
+            shutil.copy(os.path.join(self.path, self.name), newPath)
+            return FileAPI(newPath, self.name)
+        except Exception as err:
+            self.logger.error("Cannot move file " + self.name + " to " + newPath)
+            self.logger.error(err)
+            exit()
+
+    def remove(self):
+        """
+        A function to remove the file and delete the object.
+        :return: void.
+        """
+        try:
+            os.remove(os.path.join(self.path, self.name))
+            self.__del__()
+        except Exception as err:
+            self.logger.error("Cannot remove file " + self.name)
+            self.logger.error(err)
+            exit()
+
+
+class Changer:
+    def __init__(self, file: FileAPI):
+        """
+        A changer class for modifying several values of the same file in succession.
+        :param file: A object of FileAPI class.
+        """
+        self.file = file
+        try:
+            self.lines = open(os.path.join(self.file.path, self.file.name)).readlines()
+        except Exception as err:
+            self.file.logger.error("Cannot open file " + self.file.name)
+            self.file.logger.error(err)
+            exit()
+
+    def change(self, line: int, value: str, val_l: int):
+        """
+        A function to change a value in this data storage file.
+        :param line: The line where the changing value is.
+        :param value: Modified values (new).
+        :param val_l: The location of the changing value in the line (divided by a space).
+        :return: Changer object.
+        """
+        val = self.lines[line - 1].split()
+        self.lines[line - 1] = self.lines[line - 1].replace(val[val_l - 1], value)
+        return self
+
+    def do(self):
+        """
+        Confirm and implement the changing.
+        :return: The class FileAPI object.
+        """
+        try:
+            with open(os.path.join(self.file.path, self.file.name), "w") as file:
+                file.writelines(self.lines)
+            return self
+        except Exception as err:
+            self.file.logger.error("Cannot open file " + self.file.name)
+            self.file.logger.error(err)
+            exit()
+        return self.file
+
+
+class Reader:
+    def __init__(self, file: FileAPI):
+        """
+        A changer class for reading several values of the same file in succession.
+        :param file: A object of FileAPI class.
+        """
+        self.value = []
+        try:
+            self.lines = open(os.path.join(file.path, file.name)).readlines()
+        except Exception as err:
+            file.logger.error("Cannot open file " + file.name)
+            file.logger.error(err)
+            exit()
+
+    def read(self, line: int, val_l: int):
+        """
+        A function to read a value in this data storage file.
+        :param line: The line where the value is.
+        :param val_l: The location of the value in the line (divided by a space).
+        :return: Reader object.
+        """
+        self.value.append(self.lines[line - 1].split()[val_l - 1])
+        return self
+
+    def result(self):
+        """
+        Get the result of all the reading values.
+        :return: The values.
+        """
+        return self.value

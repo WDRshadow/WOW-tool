@@ -3,3 +3,4 @@
 # Base ----------------------------------------
 
 matlabengineforpython # Matlab engine for python
+openmdao~=3.25.0
