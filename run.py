@@ -1,8 +1,14 @@
+import os
 import sys
-from module import matlabAPI, wamitAPI, fastAPI, mdaoInterface, fileAPI, mainLoop, logger
 
 # Check if all the folders exist.
-fileAPI.init_check()
+folder_list = ["MATLAB", "WAMIT", "openFAST", "temp", "logs"]
+for i in folder_list:
+    folder = os.path.exists(i)
+    if not folder:
+        os.makedirs(i)
+
+from module import logger
 
 
 # error message for wrong commands
@@ -22,14 +28,24 @@ if len(sys.argv) != 2:
 
 # command filter
 if str(sys.argv[1]) == "run":
+    from module import mainLoop
+
     mainLoop.Main().run()
 elif str(sys.argv[1]) == "openfast":
+    from module import fastAPI
+
     fastAPI.FAST().run()
 elif str(sys.argv[1]) == "matlab":
+    from module import matlabAPI
+
     matlabAPI.MATLAB().run()
 elif str(sys.argv[1]) == "wamit":
+    from module import wamitAPI
+
     wamitAPI.WAMIT().run()
 elif str(sys.argv[1]) == "openmdao":
+    from module import mdaoInterface
+
     mdaoInterface.MDAO().run()
 else:
     error()

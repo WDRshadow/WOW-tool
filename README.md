@@ -32,6 +32,15 @@ Command list:
 5. openmdao - run openMDAO for optimization
 6. help - for help
 
+## Todo List
+
+This software is being processed. 
+
+- [ ] Develop file API for move and rename the output/input files.
+- [ ] Connect each component in the loop.
+- [ ] Connect to optimization interface.
+- [ ] Test and evaluation.
+
 ## Acknowledgement
 
 The University of Edinburgh, Engineering for Change Association;

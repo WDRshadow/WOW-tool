@@ -13,7 +13,7 @@ class WAMIT:
     def run(self):
         self.logger.info("Running WAMIT to get the hydrostatic data.")
         try:
-            subprocess.check_call(config.wamit_command)
+            subprocess.check_call(config.wamit_command, cwd=self.path)
         except Exception as err:
             self.logger.error("Run WAMIT failed.")
             self.logger.error(err)

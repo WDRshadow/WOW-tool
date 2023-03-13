@@ -13,7 +13,7 @@ class FAST:
     def run(self):
         self.logger.info("Running openFAST simulation.")
         try:
-            subprocess.check_call([config.openFAST_command, self.path + "/main.fst"])
+            subprocess.check_call([config.openFAST_command, "main.fst"], cwd=self.path)
         except Exception as err:
             self.logger.error("Run openFAST failed.")
             self.logger.error(err)

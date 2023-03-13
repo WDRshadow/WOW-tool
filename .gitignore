@@ -131,6 +131,7 @@ dmypy.json
 # test files
 test/
 test.*
+*.exe
 
 # output files
 *.gdf
