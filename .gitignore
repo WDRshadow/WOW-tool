@@ -134,6 +134,7 @@ test.*
 
 # output files
 *.gdf
+*.cfg
 *.sum
 *.out
 *.ech

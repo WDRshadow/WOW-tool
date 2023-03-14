@@ -7,7 +7,8 @@ from module import logger
 class FileAPI:
     def __init__(self, path: str, name: str):
         """
-        A class of file modified API. This class is used to change, read, move, rename a file in the project.
+        A class of file modified API. This class is used to change, read, move, copy, rename, remove a file in the
+        project. \n
         :param path: The relative path of the modified file.
         :param name: The file name.
         """
@@ -20,21 +21,21 @@ class FileAPI:
 
     def changer(self):
         """
-        Get a Changer object for modifying several values of the same file in succession.
+        Get a Changer object for modifying several values of the same file in succession. \n
         :return: a Changer object.
         """
         return Changer(self)
 
     def reader(self):
         """
-        Get a Reader object for reading several values of the same file in succession.
+        Get a Reader object for reading several values of the same file in succession. \n
         :return: a Reader object.
         """
         return Reader(self)
 
     def rename(self, name: str):
         """
-        A function to rename this data storage file.
+        A function to rename this data storage file. \n
         :param name: New name.
         :return: The object.
         """
@@ -49,7 +50,7 @@ class FileAPI:
 
     def move(self, newPath: str):
         """
-        A function to move this data storage file to a new path.
+        A function to move this data storage file to a new path. \n
         :param newPath: The new location for the file.
         :return: The object.
         """
@@ -64,7 +65,7 @@ class FileAPI:
 
     def copy(self, newPath: str):
         """
-        A function to copy this data storage file to a new path.
+        A function to copy this data storage file to a new path. \n
         :param newPath: The new path for the file.
         :return: A new object for the new file.
         """
@@ -78,7 +79,7 @@ class FileAPI:
 
     def remove(self):
         """
-        A function to remove the file and delete the object.
+        A function to remove the file and delete the object. \n
         :return: void.
         """
         try:
@@ -91,7 +92,7 @@ class FileAPI:
 
     def isExist(self):
         """
-        A function to check if the file exist.
+        A function to check if the file exist. \n
         :return: True if it is exist or, False if it is not.
         """
         return os.path.exists(os.path.join(self.path, self.name))
@@ -100,7 +101,7 @@ class FileAPI:
 class Changer:
     def __init__(self, file: FileAPI):
         """
-        A changer class for modifying several values of the same file in succession.
+        A changer class for modifying several values of the same file in succession. \n
         :param file: A object of FileAPI class.
         """
         self.file = file
@@ -113,19 +114,18 @@ class Changer:
 
     def change(self, line: int, value: str, val_l: int):
         """
-        A function to change a value in this data storage file.
+        A function to change a value in this data storage file. \n
         :param line: The line where the changing value is.
         :param value: Modified values (new).
         :param val_l: The location of the changing value in the line (divided by a space).
         :return: Changer object.
         """
-        val = self.lines[line - 1].split()
-        self.lines[line - 1] = self.lines[line - 1].replace(val[val_l - 1], value)
+        self.lines[line - 1] = self.lines[line - 1].replace(self.lines[line - 1].split()[val_l - 1], value)
         return self
 
     def do(self):
         """
-        Confirm and implement the changing.
+        Confirm and implement the changing. \n
         :return: The class FileAPI object.
         """
         try:
@@ -142,7 +142,7 @@ class Changer:
 class Reader:
     def __init__(self, file: FileAPI):
         """
-        A changer class for reading several values of the same file in succession.
+        A changer class for reading several values of the same file in succession. \n
         :param file: A object of FileAPI class.
         """
         self.value = []
@@ -155,7 +155,7 @@ class Reader:
 
     def read(self, line: int, val_l: int):
         """
-        A function to read a value in this data storage file.
+        A function to read a value in this data storage file. \n
         :param line: The line where the value is.
         :param val_l: The location of the value in the line (divided by a space).
         :return: Reader object.
@@ -165,7 +165,7 @@ class Reader:
 
     def result(self):
         """
-        Get the result of all the reading values.
+        Get the result of all the reading values. \n
         :return: The values.
         """
         return self.value

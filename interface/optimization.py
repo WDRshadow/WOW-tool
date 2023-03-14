@@ -34,8 +34,8 @@ class FWOptimise(om.ExternalCodeComp):
         Col_R = inputs['Col_R']
         H = inputs['H']
         m = inputs['m']
-        Tow_H = ['Tow_H']
-        Col_Sep = ['Col_Sep']
+        Tow_H = inputs['Tow_H']
+        Col_Sep = inputs['Col_Sep']
 
         with open(self.input_file, 'w') as input_file:
             input_file.write('%.16f\n%.16f\n%.16f\n%.16f\n%.16f\n' % (Col_R, H, m, Tow_H, Col_Sep))
